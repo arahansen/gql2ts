@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Convert GraphQL Schema to TypeScript defs",
   "dependencies": {
+    "flow-bin": "^0.62.0",
     "graphql": ">= 0.10 <0.12"
   },
   "devDependencies": {
