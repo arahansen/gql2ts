@@ -1,3 +1,5 @@
+import { spawnSync } from 'child_process';
+
 import { schemaToInterfaces, generateNamespace } from '../packages/from-schema/src';
 import { DEFAULT_OPTIONS } from '../packages/language-typescript/src';
 import FLOW_OPTIONS from '../packages/language-flow/src';
@@ -29,6 +31,16 @@ describe('gql2ts', () => {
       );
 
       expect(actual).toMatchSnapshot();
+
+      // Check Flow Output
+      const { stdout, stderr, status } =
+        spawnSync('flow', ['check-contents'], { input: actual });
+
+      if (status !== 0) {
+        console.log(stdout.toString());
+        console.log(stderr.toString());
+      }
+      expect(status).toEqual(0);
     });
 
     it('correctly ignores types', () => {
